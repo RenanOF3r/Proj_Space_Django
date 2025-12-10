@@ -1,5 +1,6 @@
 # Simulação do Sistema Solar em Django
 
+
 Esta aplicação Django exibe uma simulação interativa do Sistema Solar com controles de zoom, velocidade orbital, órbitas e trilhas.
 
 ## Como executar aqui no ambiente
@@ -19,3 +20,4 @@ Esta aplicação Django exibe uma simulação interativa do Sistema Solar com co
 4. **Configure variáveis** se precisar: defina `DJANGO_SECRET_KEY`/`DEBUG` no painel da Vercel (por padrão o projeto gera uma chave e usa `DEBUG=True`).
 
 Após o deploy, abra a URL da Vercel para carregar a simulação (rota `/`).
+
