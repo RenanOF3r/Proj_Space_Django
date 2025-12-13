@@ -1,5 +1,6 @@
 # Simulação do Sistema Solar em Django
 
+
 Esta aplicação Django exibe uma simulação interativa do Sistema Solar com controles de zoom, velocidade orbital, órbitas e trilhas.
 
 ## Como executar aqui no ambiente
@@ -13,12 +14,10 @@ Esta aplicação Django exibe uma simulação interativa do Sistema Solar com co
 ## Deploy na Vercel
 1. **Instale a CLI** (se ainda não tiver): `npm i -g vercel`.
 2. **Faça login**: `vercel login`.
-3. **Configure variáveis obrigatórias** no painel da Vercel (ou via `vercel env`):
-   - `DJANGO_SECRET_KEY`: gere um valor qualquer para produção (o runtime da Vercel é read-only, então a chave não é gravada em arquivo automaticamente).
-   - `DJANGO_ALLOWED_HOSTS`: defina o domínio da Vercel (ex.: `seu-projeto.vercel.app`) para evitar bloqueio por host.
-   - (opcional) `DEBUG=false` para produção.
-4. **Deploy**: na raiz do projeto execute `vercel --prod`. O arquivo `vercel.json` já inclui:
-   - build usando `@vercel/python` em `api/index.py` (WSGI do Django);
+3. **Deploy**: na raiz do projeto execute `vercel --prod`. O arquivo `vercel.json` já inclui:
+   - build usando `@vercel/python` em `api/index.py` (wsgi do Django);
    - rotas que servem `/static` diretamente e encaminham o restante para o app Django.
+4. **Configure variáveis** se precisar: defina `DJANGO_SECRET_KEY`/`DEBUG` no painel da Vercel (por padrão o projeto gera uma chave e usa `DEBUG=True`).
 
 Após o deploy, abra a URL da Vercel para carregar a simulação (rota `/`).
+
