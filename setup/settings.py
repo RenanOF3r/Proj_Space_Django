@@ -21,12 +21,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# Load SECRET_KEY from environment or persist it locally in .env
+# Load SECRET_KEY from environment or .env (without writing to disk, since Vercel's
+# runtime is read-only)
 ENV_PATH = BASE_DIR / '.env'
-_env_contents = ''
 if ENV_PATH.exists():
-    _env_contents = ENV_PATH.read_text(encoding='utf-8')
-    for raw_line in _env_contents.splitlines():
+    for raw_line in ENV_PATH.read_text(encoding='utf-8').splitlines():
         line = raw_line.strip()
         if not line or line.startswith('#') or '=' not in line:
             continue
@@ -36,13 +35,7 @@ if ENV_PATH.exists():
 if 'DJANGO_SECRET_KEY' not in os.environ:
     from django.core.management.utils import get_random_secret_key
 
-    secret = get_random_secret_key()
-    updated_env = _env_contents
-    if updated_env and not updated_env.endswith('\n'):
-        updated_env += '\n'
-    updated_env += f'DJANGO_SECRET_KEY={secret}\n'
-    ENV_PATH.write_text(updated_env, encoding='utf-8')
-    os.environ['DJANGO_SECRET_KEY'] = secret
+    os.environ['DJANGO_SECRET_KEY'] = get_random_secret_key()
 
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
