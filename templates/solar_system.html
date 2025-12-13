@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulação do Sistema Solar</title>
+    <link rel="stylesheet" href="{% static 'css/solar.css' %}">
+</head>
+<body>
+    <header class="topbar">
+        <div>
+            <h1>Simulação do Sistema Solar</h1>
+            <p>Visualização interativa com órbitas, zoom e controle de velocidade.</p>
+        </div>
+        <div class="legend">
+            <span class="dot sun"></span> Sol
+            <span class="dot trail"></span> Órbita
+        </div>
+    </header>
+
+    <main class="layout">
+        <section class="canvas-panel">
+            <canvas id="universe" width="1200" height="800" aria-label="Canvas da simulação do sistema solar"></canvas>
+        </section>
+        <aside class="controls" aria-label="Ferramentas da simulação">
+            <div class="control-block">
+                <label for="speed">Velocidade orbital</label>
+                <input type="range" id="speed" min="0.1" max="20" step="0.1" value="1">
+                <div class="hint">Multiplica o tempo simulado (dias/s).</div>
+            </div>
+            <div class="control-block">
+                <label for="zoom">Zoom</label>
+                <input type="range" id="zoom" min="0.3" max="2.5" step="0.1" value="1.0">
+                <div class="hint">Aproxima ou afasta o sistema.</div>
+            </div>
+            <div class="control-block switches">
+                <label><input type="checkbox" id="show-orbits" checked> Mostrar órbitas</label>
+                <label><input type="checkbox" id="show-names" checked> Mostrar nomes</label>
+                <label><input type="checkbox" id="show-trails" checked> Trilhas de movimento</label>
+            </div>
+            <div class="control-block buttons">
+                <button id="toggle">⏯️ Pausar/Retomar</button>
+                <button id="reset">🔄 Reiniciar</button>
+            </div>
+            <div class="info" id="info">
+                <h2>Dados do corpo celeste</h2>
+                <p>Selecione um planeta na visualização para detalhes.</p>
+            </div>
+        </aside>
+    </main>
+
+    <script id="planet-data" type="application/json">{{ planets_json|safe }}</script>
+    <script>
+        window.BASE_SPEED = {{ base_speed_multiplier }};
+    </script>
+    <script src="{% static 'js/solar.js' %}"></script>
+</body>
+</html>
